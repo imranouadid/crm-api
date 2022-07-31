@@ -14,18 +14,20 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-#[ApiResource]
+#[ApiResource(
+    normalizationContext: ['groups' => ["users_read"]]
+)]
 #[UniqueEntity("email", message: "E-mail already registered")]
 class User implements UserInterface, PasswordAuthenticatedUserInterface{
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column()]
-    #[Groups(['customers_read', 'invoices_read', 'invoices_subresource'])]
+    #[Groups(['customers_read', 'invoices_read', 'invoices_subresource', 'users_read'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 180, unique: true)]
-    #[Groups(['customers_read', 'invoices_read', 'invoices_subresource'])]
+    #[Groups(['customers_read', 'invoices_read', 'invoices_subresource', 'users_read'])]
     #[Assert\NotBlank(message: "E-mail can't be empty")]
     #[Assert\Email(message: "Invalid e-mail")]
     private ?string $email = null;
@@ -42,14 +44,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface{
     private ?string $password = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['customers_read', 'invoices_read', 'invoices_subresource'])]
+    #[Groups(['customers_read', 'invoices_read', 'invoices_subresource', 'users_read'])]
     #[Assert\NotBlank(message: "First name can't be empty")]
     #[Assert\Length(min: 3, max: 255, minMessage: "First name must be at least 3 characters", maxMessage: "First name
     must not exceed 255 characters")]
     private ?string $firstName = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['customers_read', 'invoices_read', 'invoices_subresource'])]
+    #[Groups(['customers_read', 'invoices_read', 'invoices_subresource', 'users_read'])]
     #[Assert\NotBlank(message: "Last name can't be empty")]
     #[Assert\Length(min: 3, max: 255, minMessage: "Last name must be at least 3 characters", maxMessage: "Last name
     must not exceed 255 characters")]
