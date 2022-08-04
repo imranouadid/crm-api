@@ -1,11 +1,22 @@
-import React from "react";
+import React, {useContext} from "react";
+import AuthAPI from "../services/AuthAPI";
+import {NavLink} from "react-router-dom";
+import AuthContext from "../contexts/AuthContext";
 
+const Navbar = ({history}) => {
 
-const Navbar = (props) => {
+    const {isAuthenticated, setIsAuthenticated} = useContext(AuthContext);
+
+    const handleLogout = () => {
+      AuthAPI.logout();
+      setIsAuthenticated(false);
+      history.push('/login');
+    }
+
   return (
       <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
           <div className="container-fluid">
-              <a className="navbar-brand" href="#">CRM-APP</a>
+              <NavLink className="navbar-brand" to="/">CRM-APP</NavLink>
               <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01"
                       aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
                   <span className="navbar-toggler-icon"/>
@@ -13,24 +24,28 @@ const Navbar = (props) => {
               <div className="collapse navbar-collapse" id="navbarColor01">
                   <ul className="navbar-nav me-auto">
                       <li className="nav-item">
-                          <a className="nav-link" href="#customers">Customers</a>
+                          <NavLink className="nav-link" to="/customers">Customers</NavLink>
                       </li>
                       <li className="nav-item">
-                          <a className="nav-link" href="#invoices">Invoices</a>
+                          <NavLink className="nav-link" to="/invoices">Invoices</NavLink>
                       </li>
                   </ul>
                   <ul className="navbar-nav ml-auto">
-                      <li className="nav-item">
-                          <a className="nav-link" href="#">Subscribe</a>
-                      </li>
+                      {
+                          ! isAuthenticated &&
+                          <>
+                              <li className="nav-item">
+                                  <NavLink className="nav-link" to="/register">Subscribe</NavLink>
+                              </li>
 
-                      <li className="nav-item">
-                          <a className="nav-link btn" href="#">Connect</a>
-                      </li>
-
-                      <li className="nav-item">
-                          <a className="nav-link btn" href="#">Disconnect</a>
-                      </li>
+                              <li className="nav-item">
+                                  <NavLink className="nav-link btn" to="/login">Connect</NavLink>
+                              </li>
+                          </> ||
+                          <li className="nav-item">
+                              <button className="nav-link btn" onClick={handleLogout}>Disconnect</button>
+                          </li>
+                      }
 
                   </ul>
               </div>

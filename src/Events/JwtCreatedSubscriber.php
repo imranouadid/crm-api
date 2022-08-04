@@ -2,7 +2,6 @@
 
 namespace App\Events;
 
-
 use JetBrains\PhpStorm\NoReturn;
 use Lexik\Bundle\JWTAuthenticationBundle\Event\JWTCreatedEvent;
 

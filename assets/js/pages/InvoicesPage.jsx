@@ -9,7 +9,7 @@ const STATUS_CLASS = {
     SENT: "primary"
 }
 
-const InvoicesPage = (props) => {
+const InvoicesPage = () => {
 
     const [invoices, setInvoices] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
