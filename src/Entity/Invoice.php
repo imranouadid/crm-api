@@ -42,7 +42,7 @@ use Symfony\Component\Validator\Constraints as Assert;
     order: [
         "sentAt" => "DESC"
     ],
-    paginationEnabled: true
+    paginationEnabled: false
 )]
 #[ApiFilter(OrderFilter::class, properties: ['amount', 'sentAt'])]
 class Invoice{
