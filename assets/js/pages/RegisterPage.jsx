@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import Field from "../components/forms/Field";
 import {Link} from "react-router-dom";
 import UsersAPI from "../services/UsersAPI";
+import {toast} from "react-toastify";
 
 
 const RegisterPage = ({history}) => {
@@ -34,12 +35,14 @@ const RegisterPage = ({history}) => {
         if(user.password !== user.passwordConfirm){
             apiErrors.passwordConfirm = "Password doesn't matched!";
             setErrors(apiErrors);
+            toast.error("Your form has errors !");
             return;
         }
 
         try{
             await UsersAPI.add(user);
             setErrors({});
+            toast.success("Your account has been created successfully !");
             history.replace('/login');
 
         }catch ({response}) {
@@ -50,6 +53,7 @@ const RegisterPage = ({history}) => {
                 });
                 setErrors(apiErrors);
             }
+            toast.error("Your form has errors !");
         }
     }
 

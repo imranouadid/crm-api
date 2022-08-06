@@ -2,6 +2,7 @@ import React, {useContext, useState} from "react";
 import authAPI from "../services/AuthAPI";
 import AuthContext from "../contexts/AuthContext";
 import Field from "../components/forms/Field";
+import {toast} from "react-toastify";
 
 const LoginPage = ({history}) => {
 
@@ -26,10 +27,12 @@ const LoginPage = ({history}) => {
             await authAPI.authenticate(credentials);
             setError("");
             setIsAuthenticated(true);
+            toast.success("You are connected !");
             history.replace('/customers');
         }catch (error) {
             setError("You have entered an invalid username or password");
             setCredentials({...credentials, ['password']: ""});
+            toast.error("Authentification failed");
         }
     }
 
