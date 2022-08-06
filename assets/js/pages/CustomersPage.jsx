@@ -1,6 +1,7 @@
 import React, {useContext, useEffect, useState} from "react";
 import Pagination from "../components/Pagination";
 import CustomersAPI from "../services/CustomersAPI";
+import {Link} from "react-router-dom";
 
 
 const CustomersPage = (props) => {
@@ -58,7 +59,10 @@ const CustomersPage = (props) => {
 
     return (
         <>
-            <h1>Customers page</h1>
+            <div className={"d-flex justify-content-between align-items-center mb-3"}>
+                <h1>Customers page</h1>
+                <Link className={"btn btn-sm btn-primary"} to={"/customers/new"}>New customer</Link>
+            </div>
             <hr/>
             <div className={'form-group'}>
                 <input
@@ -68,7 +72,6 @@ const CustomersPage = (props) => {
                     onChange={handleSearch}
                     value={search}
                 />
-
             </div>
             <table className="table table-hover">
                 <thead>

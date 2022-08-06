@@ -54,8 +54,6 @@ class Customer{
 
     #[ORM\Column(length: 255, nullable: true)]
     #[Groups(['customers_read', 'invoices_read'])]
-    #[Assert\Length(min: 3, max: 255, minMessage: "Company name must be at least 3 characters", maxMessage: "Company name
-    must not exceed 255 characters")]
     private ?string $company = null;
 
     #[ORM\OneToMany(mappedBy: 'customer', targetEntity: Invoice::class)]

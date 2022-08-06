@@ -1,6 +1,7 @@
 import React, {useContext, useState} from "react";
 import authAPI from "../services/AuthAPI";
 import AuthContext from "../contexts/AuthContext";
+import Field from "../components/forms/Field";
 
 const LoginPage = ({history}) => {
 
@@ -28,6 +29,7 @@ const LoginPage = ({history}) => {
             history.replace('/customers');
         }catch (error) {
             setError("You have entered an invalid username or password");
+            setCredentials({...credentials, ['password']: ""});
         }
     }
 
@@ -35,25 +37,30 @@ const LoginPage = ({history}) => {
       <>
         <h1>Login page</h1>
           <form onSubmit={handleSubmit}>
-                  <div className="form-group">
-                      <label htmlFor="username" className="form-label mt-4">Email address</label>
-                      <input type="email" className={"form-control " + (error ? "is-invalid" : "")} id="username" placeholder="Enter email"
-                             name={'username'} value={credentials.username} onChange={handleChange}
-                      />
-                      { error && <div className="invalid-feedback">{error}</div> }
-                  </div>
+            <Field
+                name={"username"}
+                onChange={handleChange}
+                value={credentials.username}
+                placeholder={"E-mail"}
+                label={"Email address"}
+                error={error}
+                type={"email"}
+            />
 
-                  <div className="form-group">
-                      <label htmlFor="password" className="form-label mt-4">Password</label>
-                      <input type="password" className="form-control" id="password"
-                             placeholder="Password" name={'password'} value={credentials.password}
-                             onChange={handleChange}
-                      />
-                  </div>
+              <Field
+                  name={"password"}
+                  onChange={handleChange}
+                  value={credentials.password}
+                  placeholder={"Password"}
+                  label={"Password"}
+                  error={""}
+                  type={"password"}
+              />
 
-                  <div className={'form-group mt-3'}>
-                      <button type="submit" className="btn btn-primary">Submit</button>
-                  </div>
+
+              <div className={'form-group mt-3'}>
+                  <button type="submit" className="btn btn-primary">Submit</button>
+              </div>
 
           </form>
       </>
