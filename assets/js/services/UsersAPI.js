@@ -1,8 +1,9 @@
 import axios from "axios";
+import {USERS_API} from "../config";
 
 function add(user){
     return axios
-                .post("https://127.0.0.1:8000/api/users",user);
+                .post(USERS_API, user);
 }
 
 

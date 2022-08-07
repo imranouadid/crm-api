@@ -72,6 +72,7 @@ const InvoicePage = ({match, history}) => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        setErrors({});
         try{
             if(isEditing){
                 await InvoicesAPI.update(id, invoice);
@@ -83,7 +84,6 @@ const InvoicePage = ({match, history}) => {
                 toast.success("Invoice has been added successfully");
                 history.replace('/invoices');
             }
-            setErrors({});
         }catch ({response}) {
             const {violations} = response.data;
             if(violations){

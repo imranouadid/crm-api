@@ -38,7 +38,7 @@ const App = () => {
                     </Switch>
                 </main>
             </HashRouter>
-            <ToastContainer position="bottom-left" />
+            <ToastContainer position="bottom-right" />
         </AuthContext.Provider>
     );
 }
